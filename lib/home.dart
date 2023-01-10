@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -10,13 +11,48 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String uid = "";
-  @override
+  final items = const [
+    Icon(
+      Icons.people,
+      size: 30,
+    ),
+    Icon(
+      Icons.person,
+      size: 30,
+    ),
+    Icon(
+      Icons.add,
+      size: 30,
+    ),
+    Icon(
+      Icons.search,
+      size: 30,
+    ),
+  ];
+  int index = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.indigo[900],
-        title: Text('Home'),
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text('Home'),
+            IconButton(
+              icon: Icon(Icons.logout, color: Colors.red),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LoginScreen(),
+                  ),
+                );
+              },
+            ),
+          ],
+        ),
       ),
       body: Center(
         child: Center(
@@ -30,33 +66,21 @@ class _HomeState extends State<Home> {
                   fontSize: 50,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Logout",
-                    style: TextStyle(
-                      color: Colors.red,
-                      fontSize: 30,
-                    ),
-                  ),
-                  IconButton(
-                    icon: Icon(Icons.logout),
-                    onPressed: () async {
-                      await FirebaseAuth.instance.signOut();
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => LoginScreen(),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: CurvedNavigationBar(
+        items: items,
+        index: index,
+        onTap: (selectedIndex) {
+          setState(() {
+            index = selectedIndex;
+          });
+        },
+        height: 70,
+        backgroundColor: Colors.transparent,
+        animationDuration: const Duration(milliseconds: 900),
       ),
     );
   }
