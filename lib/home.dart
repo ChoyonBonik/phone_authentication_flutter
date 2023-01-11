@@ -1,6 +1,9 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:otp_practice/pages/page1.dart';
+import 'package:otp_practice/pages/page2.dart';
+import 'package:otp_practice/pages/page3.dart';
 
 import 'login.dart';
 
@@ -11,25 +14,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String uid = "";
-  final items = const [
-    Icon(
-      Icons.people,
-      size: 30,
-    ),
-    Icon(
-      Icons.person,
-      size: 30,
-    ),
-    Icon(
-      Icons.add,
-      size: 30,
-    ),
-    Icon(
-      Icons.search,
-      size: 30,
-    ),
+  final pages = [
+    Page1(), Page2(), Page3()
   ];
-  int index = 1;
+  var _page = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,32 +42,42 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
-      body: Center(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Abedok",
-                style: TextStyle(
-                  color: Colors.indigo[900],
-                  fontSize: 50,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body:
+      // Center(
+      //   child: Center(
+      //     child: Column(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: [
+      //         Text(
+      //           "Abedok",
+      //           style: TextStyle(
+      //             color: Colors.indigo[900],
+      //             fontSize: 50,
+      //           ),
+      //         ),
+      //
+      //       ],
+      //     ),
+      //   ),
+      // ),
+      pages[_page],
       bottomNavigationBar: CurvedNavigationBar(
-        items: items,
-        index: index,
-        onTap: (selectedIndex) {
+        items: [
+          Icon(Icons.person),
+          Icon(Icons.alarm),
+          Icon(Icons.notifications),
+        ],
+        index: 0,
+        color: Colors.white,
+        buttonBackgroundColor: Colors.white,
+        animationCurve: Curves.easeInOut,
+        onTap: (index) {
           setState(() {
-            index = selectedIndex;
+            _page = index;
           });
         },
-        height: 70,
-        backgroundColor: Colors.transparent,
+        //height: 70,
+        backgroundColor: Colors.blue,
         animationDuration: const Duration(milliseconds: 900),
       ),
     );
