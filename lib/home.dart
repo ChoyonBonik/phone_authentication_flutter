@@ -14,15 +14,13 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   String uid = "";
-  final pages = [
-    Page1(), Page2(), Page3()
-  ];
+  final pages = [Page1(), Page2(), Page3()];
   var _page = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.indigo[900],
+        backgroundColor: Colors.transparent,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -42,25 +40,69 @@ class _HomeState extends State<Home> {
           ],
         ),
       ),
+      drawer: Drawer(
+          child: ListView(
+        children: [
+          DrawerHeader(
+            child: Container(
+              child: Column(
+                children: [
+                  Material(
+                      borderRadius: BorderRadius.all(Radius.circular(150.0)),
+                      child: Padding(
+                        padding: EdgeInsets.all(10.0),
+                        child: Image.asset(
+                          'images/drawer_header.jpg',
+                          width: 80,
+                          height: 80,
+                        ),
+                      ))
+                ],
+              ),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Page1'),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Page2'),
+          ),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Page3'),
+          ),
+        ],
+      )
+          // Column(
+          //   mainAxisAlignment: MainAxisAlignment.center,
+          //   children: [
+          //     ElevatedButton(onPressed: (){}, child: Text("Page1"),),
+          //     ElevatedButton(onPressed: (){}, child: Text("Page2"),),
+          //     ElevatedButton(onPressed: (){}, child: Text("Page3"),),
+          //   ],
+          // ),
+          ),
       body:
-      // Center(
-      //   child: Center(
-      //     child: Column(
-      //       mainAxisAlignment: MainAxisAlignment.center,
-      //       children: [
-      //         Text(
-      //           "Abedok",
-      //           style: TextStyle(
-      //             color: Colors.indigo[900],
-      //             fontSize: 50,
-      //           ),
-      //         ),
-      //
-      //       ],
-      //     ),
-      //   ),
-      // ),
-      pages[_page],
+          // Center(
+          //   child: Center(
+          //     child: Column(
+          //       mainAxisAlignment: MainAxisAlignment.center,
+          //       children: [
+          //         Text(
+          //           "Abedok",
+          //           style: TextStyle(
+          //             color: Colors.indigo[900],
+          //             fontSize: 50,
+          //           ),
+          //         ),
+          //
+          //       ],
+          //     ),
+          //   ),
+          // ),
+          pages[_page],
       bottomNavigationBar: CurvedNavigationBar(
         items: [
           Icon(Icons.person),
@@ -68,16 +110,16 @@ class _HomeState extends State<Home> {
           Icon(Icons.notifications),
         ],
         index: 0,
-        color: Colors.white,
-        buttonBackgroundColor: Colors.white,
+        //color: Colors.white,
+        buttonBackgroundColor: Colors.transparent,
         animationCurve: Curves.easeInOut,
         onTap: (index) {
           setState(() {
             _page = index;
           });
         },
-        //height: 70,
-        backgroundColor: Colors.blue,
+        height: 50,
+        backgroundColor: Colors.transparent,
         animationDuration: const Duration(milliseconds: 900),
       ),
     );
